@@ -1,2 +1,4 @@
 /.vs
 /UmbracoOpenAIChatBot/appsettings.Development.json
+*/bin
+*/obj
