@@ -1,8 +1,8 @@
 .chat-container {
-    width: 100%;           /* Hiermee stel je de breedte in op 100% van het scherm */
-    margin: 40px 0;        /* Zorgt ervoor dat alleen de verticale marge wordt toegepast */
+    width: calc(100% + 40px); /* Hiermee stel je de breedte in op 100% van het scherm */
+    margin: -20px -20px; /* Zorgt ervoor dat alleen de verticale marge wordt toegepast */
     background-color: #fff;
-    border-radius: 8px;
+    border-radius: 0px;
     overflow: hidden;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -17,13 +17,13 @@
 
 .messages {
     padding: 15px;
-    height: 400px;
+    height: calc(100vh - 260px);
     overflow-y: auto;
 }
 
 .message {
     padding: 10px 15px;
-    border-radius: 20px;
+    border-radius: 5px;
     margin: 5px 0;
     max-width: 80%;
 }
@@ -57,8 +57,9 @@
     flex-grow: 1;
     padding: 10px;
     border: none;
-    border-radius: 20px;
+    border-radius: 5px;
     margin-right: 10px;
+    margin-bottom: 0;
 }
 
 .input-area button {
@@ -66,8 +67,9 @@
     background-color: #34b7f1;
     border: none;
     color: #fff;
-    border-radius: 20px;
+    border-radius: 5px;
     cursor: pointer;
+    margin-left: 20px;
 }
 
 .input-area button:hover {
