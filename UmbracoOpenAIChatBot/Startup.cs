@@ -1,3 +1,6 @@
+using AIServices.Contracts;
+using System.Configuration;
+
 namespace UmbracoOpenAIChatBot
 {
     public class Startup
@@ -29,6 +32,8 @@ namespace UmbracoOpenAIChatBot
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<OpenAISettings>(_config.GetSection("OpenAIAPI"));
+
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()

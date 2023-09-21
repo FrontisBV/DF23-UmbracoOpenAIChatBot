@@ -4,6 +4,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="App_Plugins\AI_Dashboard\chatbot.css" />
+    <Content Include="App_Plugins\AI_Dashboard\chatbot.html" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Umbraco.Cms" Version="12.1.2" />
@@ -15,6 +19,15 @@
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="App_Plugins\AI_Dashboard\chatbot.controller.js" />
+    <None Include="App_Plugins\AI_Dashboard\package.manifest" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AIServices\AIServices.csproj" />
+  </ItemGroup>
+
   <PropertyGroup>
     <!-- Razor files are needed for the backoffice to work correctly -->
     <CopyRazorGenerateFilesToPublishDirectory>true</CopyRazorGenerateFilesToPublishDirectory>
@@ -24,6 +37,7 @@
     <!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
     <RazorCompileOnBuild>false</RazorCompileOnBuild>
     <RazorCompileOnPublish>false</RazorCompileOnPublish>
+    <StartupObject></StartupObject>
   </PropertyGroup>
   
 </Project>
