@@ -1,0 +1,20 @@
+{
+  "dashboards": [
+    {
+      "alias": "Chatbot",
+      "view": "/App_Plugins/AI_Dashboard/chatbot.html",
+      "sections": [ "content" ],
+      "weight": -10,
+      "access": [
+        { "deny": "translator" },
+        { "grant": "admin" }
+      ]
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/AI_Dashboard/chatbot.controller.js"
+  ],
+  "css": [
+    "~/App_Plugins/AI_Dashboard/chatbot.css"
+  ]
+}

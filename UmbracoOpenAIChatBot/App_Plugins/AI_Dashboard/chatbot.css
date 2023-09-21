@@ -1,0 +1,75 @@
+.chat-container {
+    width: 100%;           /* Hiermee stel je de breedte in op 100% van het scherm */
+    margin: 40px 0;        /* Zorgt ervoor dat alleen de verticale marge wordt toegepast */
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    padding: 10px 15px;
+    background-color: #34b7f1;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+}
+
+.messages {
+    padding: 15px;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.message {
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin: 5px 0;
+    max-width: 80%;
+}
+
+.message .fas {
+    margin-right: 8px;
+    vertical-align: middle;
+}
+
+.received {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+    margin-right: auto;
+}
+
+.sent {
+    background-color: #34b7f1;
+    color: #fff;
+    align-self: flex-end;
+    margin-left: auto;
+}
+
+.input-area {
+    display: flex;
+    border-top: 1px solid #f1f1f1;
+    padding: 10px 15px;
+    align-items: center;
+}
+
+.input-area input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 20px;
+    margin-right: 10px;
+}
+
+.input-area button {
+    padding: 10px 15px;
+    background-color: #34b7f1;
+    border: none;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.input-area button:hover {
+    background-color: #2a99d6;
+}

@@ -1,0 +1,13 @@
+<div class="chat-container" ng-controller="ChatbotController as vm">
+  <div class="header">AI Assistent</div>
+  <div class="messages">
+    <div class="message" ng-class="{'received': msg.type == 'received', 'sent': msg.type == 'sent'}" ng-repeat="msg in vm.messages">
+      <span ng-bind-html="msg.content"></span>
+    </div>
+  </div>
+  <div class="input-area">
+    <input type="text" placeholder="Typ een bericht..." ng-model="vm.newMessageContent">
+    <button ng-click="vm.sendMessage()">Verstuur</button>
+    <button ng-click="vm.clearMessages()">Reset</button>
+  </div>
+</div>

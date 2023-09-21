@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UmbracoOpenAIChatBot", "UmbracoOpenAIChatBot\UmbracoOpenAIChatBot.csproj", "{6D66DA9A-295B-4F46-BDD4-AC8CDB4F6E42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServices", "AIServices\AIServices.csproj", "{5C4FF9D5-B3E7-43DE-8B45-73A2DA6DB75C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AIServices.Contracts", "AIServices.Contracts\AIServices.Contracts.csproj", "{F7DF5D3C-3780-4B9F-9D4A-F5EB0F872836}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "external", "external", "{CE5EB75A-8ABC-4C1A-A822-084075E917F8}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenAI_API", "OpenAI-API-dotnet\OpenAI_API\OpenAI_API.csproj", "{41D56985-B66B-4BC3-9E59-8F8DE973EC7E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6D66DA9A-295B-4F46-BDD4-AC8CDB4F6E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D66DA9A-295B-4F46-BDD4-AC8CDB4F6E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D66DA9A-295B-4F46-BDD4-AC8CDB4F6E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D66DA9A-295B-4F46-BDD4-AC8CDB4F6E42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C4FF9D5-B3E7-43DE-8B45-73A2DA6DB75C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C4FF9D5-B3E7-43DE-8B45-73A2DA6DB75C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C4FF9D5-B3E7-43DE-8B45-73A2DA6DB75C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C4FF9D5-B3E7-43DE-8B45-73A2DA6DB75C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7DF5D3C-3780-4B9F-9D4A-F5EB0F872836}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7DF5D3C-3780-4B9F-9D4A-F5EB0F872836}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7DF5D3C-3780-4B9F-9D4A-F5EB0F872836}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7DF5D3C-3780-4B9F-9D4A-F5EB0F872836}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41D56985-B66B-4BC3-9E59-8F8DE973EC7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41D56985-B66B-4BC3-9E59-8F8DE973EC7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41D56985-B66B-4BC3-9E59-8F8DE973EC7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41D56985-B66B-4BC3-9E59-8F8DE973EC7E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{41D56985-B66B-4BC3-9E59-8F8DE973EC7E} = {CE5EB75A-8ABC-4C1A-A822-084075E917F8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {258A27A2-0DCF-4F76-92D9-BC8230060229}
+	EndGlobalSection
+EndGlobal
