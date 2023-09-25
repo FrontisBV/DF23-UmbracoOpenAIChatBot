@@ -1,58 +1,35 @@
-using AIServices.Contracts;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using OpenAI.ObjectModels.RequestModels;
 using Umbraco.Cms.Web.Common.Controllers;
+using OpenAI.Interfaces;
+using AIServices;
 
 namespace InternalTools.ContextBot.Web.Controllers
 {
-  public class ChatMessage
+
+    public class ChatAIController : UmbracoApiController
   {
-    public string? User { get; set; }
-    public string? Content { get; set; }
-  }
+        private const string defaultChatId = "default";
 
-  public class ChatAIController : UmbracoApiController
-  {
-    private readonly IOpenAIAppService _openAiAppService;
+        private readonly IUmbracoOpenAIAppService umbracoOpenAIAppService;
 
-    public ChatAIController(IOpenAIAppService openAiAppService)
-    {   
-        _openAiAppService = openAiAppService;
-    }
-
-    [HttpPost]
-    public void ClearMessages([FromBody] ChatMessage content)
-    {
-      // Clear the messages.
-    }
-
-    [HttpPost]
-    public async Task<JsonResult> SendMessage([FromBody] ChatMessage content)
-    {
-      // Verwerk het ontvangen bericht, bijvoorbeeld door het naar Azure AI te sturen
-      // en de respons op te halen.
-      var ChatbotAnswer = await _openAiAppService.Chat(new List<OpenAI_API.Chat.ChatMessage>()
-      {
-        new OpenAI_API.Chat.ChatMessage()
+        public ChatAIController(IUmbracoOpenAIAppService umbracoOpenAIAppService)
         {
-            Content = "Act as a Umbraco bot integrated in the backoffice, developed by digital agency Frontis. Help the user.",
-            Role = OpenAI_API.Chat.ChatMessageRole.System
-        },
-        new OpenAI_API.Chat.ChatMessage()
-        {
-            Content = content.Content,
-            Role = OpenAI_API.Chat.ChatMessageRole.User
+            this.umbracoOpenAIAppService = umbracoOpenAIAppService;
         }
-      });
 
-      // Simuleer een ontvangen bericht van Azure AI (vervang dit door je eigen logica)
-      var receivedMessage = new { Type = "received", Content = ChatbotAnswer };
+        [HttpPost]
+        public void ClearMessages()
+        {
+            umbracoOpenAIAppService.ClearMessages(defaultChatId);
+        }
 
-      var response = new List<object> { receivedMessage };
+        [HttpPost]
+        public async Task<JsonResult> SendMessage([FromBody] ChatMessage content)
+        {
+            var result = await umbracoOpenAIAppService.SendMessage(defaultChatId, content);
 
-      return new JsonResult(response);
-    }
+            return new JsonResult(new List<object>() { result.Last() });
+        }
   }
 }
