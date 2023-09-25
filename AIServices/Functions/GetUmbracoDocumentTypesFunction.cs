@@ -1,11 +1,9 @@
-﻿using OpenAI.Builders;
+﻿using AIServices.Models;
+using AutoMapper;
+using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
 
@@ -16,10 +14,12 @@ namespace AIServices.Functions
         public string Name { get => nameof(GetUmbracoDocumentTypesFunction); }
 
         private readonly IContentTypeService contentTypeService;
+        private readonly IMapper mapper;
 
-        public GetUmbracoDocumentTypesFunction(IContentTypeService _contentTypeService)
+        public GetUmbracoDocumentTypesFunction(IContentTypeService _contentTypeService, IMapper mapper)
         {
             contentTypeService = _contentTypeService;
+            this.mapper = mapper;
         }
 
         public FunctionDefinition CreateDefinition()
@@ -33,11 +33,12 @@ namespace AIServices.Functions
             StringBuilder sb = new();
 
             sb.AppendLine("The following document types are available within Umbraco: ");
-            sb.AppendLine("````");
 
-            sb.AppendLine(JsonSerializer.Serialize(contentTypeService.GetAll().Select(s => s as ContentType)));
+            sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
-            sb.AppendLine("````");
+            sb.AppendLine(JsonSerializer.Serialize(contentTypeService.GetAll().Select(s => mapper.Map<MinimalContentType>(s as ContentType))));
+
+            sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
             return sb.ToString();
         }

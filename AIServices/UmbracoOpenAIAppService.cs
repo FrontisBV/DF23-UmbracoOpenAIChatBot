@@ -28,8 +28,6 @@ namespace AIServices
         private readonly IEnumerable<IUmbracoOpenAIFunction> openAIFunctions;
         private readonly List<FunctionDefinition> functionDefinitions;
 
-       
-
         public UmbracoOpenAIAppService(
             IOpenAIService openAiAppService,
             IChatMessagePersistencyAppService chatMessagePersistencyAppService,
@@ -59,7 +57,7 @@ namespace AIServices
                 Messages = messages,
                 Functions = functionDefinitions,
                 Temperature = MODELTEMPERATURE,
-                MaxTokens = 200,
+                MaxTokens = 1000,
             });
 
             if (completionResult.Successful)
@@ -133,8 +131,6 @@ namespace AIServices
                     messages.Add(ChatMessage.FromFunction($"An error occured: {newCompletionResult.Error?.Message ?? "Unknown"}", choice.Message.FunctionCall.Name));
                 }
             }
-
-            //return messages;
         }
 
         private string GetFunctionResult(FunctionCall fn)
@@ -151,13 +147,7 @@ namespace AIServices
                 messages = new List<ChatMessage>
                 {
                     ChatMessage.FromSystem("Act as a Umbraco bot integrated in the backoffice, developed by digital agency Frontis. Help the user."),
-                    //ChatMessage.FromSystem(@"When prompted to create a page (also known as a content item) make sure you know what document types are available in Umbraco 
-                    //                        (you can use the 'get_umbraco_documenttypes' function for this) 
-                    //                        then make sure you execute the document type properties function so you know which properties belong to the certain document type."),
-
-                     ChatMessage.FromSystem(@"When prompted to create a page use the document type you think suits best. You can always request Umbraco if you do not know which document types are available. 
-                                               Also request the properties of the document types if needed. Also, when requested to create a page always check if the page already exists, if the page already exists do NOT create it."),
-
+                    ChatMessage.FromSystem("When prompted to create a page act as a content marketeer whom always want the page to be optimized for SEO. Before creating a page always request umbraco which document types are availble. The docment types will tell you all the metadata information e.q. property information, permission information, template information. Optionally you can also request what content items are already created at root level. If the document type has SEO properties then fill them.")
                 };
             }
 

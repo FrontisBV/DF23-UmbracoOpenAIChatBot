@@ -10,25 +10,24 @@ using Umbraco.Cms.Core.Services;
 
 namespace AIServices.Functions
 {
-    public class CreateUmbracoContentItemFunction : IUmbracoOpenAIFunction
+    public class UpdateUmbracoContentItemFunction : IUmbracoOpenAIFunction
     {
+
         private readonly IContentService contentService;
         private readonly IMapper mapper;
 
-        public CreateUmbracoContentItemFunction(IContentService contentService, IMapper mapper)
+        public UpdateUmbracoContentItemFunction(IContentService contentService, IMapper mapper)
         {
             this.contentService = contentService;
             this.mapper = mapper;
         }
 
-        public string Name { get => nameof(CreateUmbracoContentItemFunction); }
+        public string Name { get => nameof(UpdateUmbracoContentItemFunction); }
 
         public FunctionDefinition CreateDefinition()
         {
-            return new FunctionDefinitionBuilder(this.Name, "Create a page (also known as a content item) of a certain document type and set the properties of the page with values.")
-                    .AddParameter("content_item_name", new PropertyDefinition { Type = "string", Description = "The name of the page, e.g. Blog", Required = new List<string> { "content_item_name" } })
-                    .AddParameter("content_item_document_type", new PropertyDefinition { Type = "string", Description = "The name or alias of the document type, e.g. BlogItem", Required = new List<string> { "content_item_document_type" } })
-                    .AddParameter("content_item_parent_id", new PropertyDefinition { Type = "integer", Description = "The id of the parent content item"})
+            return new FunctionDefinitionBuilder(this.Name, "Update a page (also known as a content item) and update the properties of the document type with values.")
+                    .AddParameter("content_item_id", new PropertyDefinition { Type = "integer", Description = "The name ID of the page", Required = new List<string> { "content_item_id" } })
                     .AddParameter("content_propertie_values", PropertyDefinition.DefineArray(
                         PropertyDefinition.DefineObject(
                             properties: new Dictionary<string, PropertyDefinition>()
@@ -38,7 +37,7 @@ namespace AIServices.Functions
                             },
                             required: null,
                             additionalProperties: false,
-                            description: "The properties to set for the page",
+                            description: "The properties for the specified document type which exist of the name of the property and the value for the property.",
                             @enum: null))
                     )
                     .Build();
@@ -52,17 +51,11 @@ namespace AIServices.Functions
 
                 ContentItem contentItem = JsonSerializer.Deserialize<ContentItem>(arguments ?? string.Empty) ?? new ContentItem();
 
-                if(string.IsNullOrEmpty(contentItem.ContentItemName))
-                    throw new ArgumentException("The name of the page is mandatory", nameof(contentItem.ContentItemName));
+                if(contentItem.ContentItemId <= 0)
+                    throw new ArgumentException("The name of the page is mandatory", nameof(contentItem.ContentItemId));
 
-                if (string.IsNullOrEmpty(contentItem.ContentItemDocumentType))
-                    throw new ArgumentException("The document type of the page is mandatory", nameof(contentItem.ContentItemDocumentType));
+                IContent content = contentService.GetById(contentItem.ContentItemId);
 
-                var parentId = contentItem.ContentItemParentId <= 0 ? -1 : contentItem.ContentItemParentId;
-
-                IContent content = contentService.Create(contentItem.ContentItemName, parentId, contentItem.ContentItemDocumentType);
-
-                
                 if (contentItem.ContentPropertiesValues?.Any() ?? false)
                 {
                     foreach (var item in contentItem.ContentPropertiesValues)
@@ -74,8 +67,8 @@ namespace AIServices.Functions
 
                 contentService.SaveAndPublish(content);
 
-                sb.AppendLine($"Page created '{contentItem.ContentItemName}' with id \"{content.Id}\" and document type \"{contentItem.ContentItemDocumentType}\"!");
-                sb.AppendLine("Here is the complete newly created page object: ");
+                sb.AppendLine($"Page with id '{contentItem.ContentItemId}' Updated!");
+                sb.AppendLine("Here is the complete updated page object: ");
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
                 sb.AppendLine(JsonSerializer.Serialize(mapper.Map<Models.MinimalContentItem>(content as Umbraco.Cms.Core.Models.Content)));
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
@@ -101,14 +94,8 @@ namespace AIServices.Functions
 
         private class ContentItem
         {
-            [JsonPropertyName("content_item_name")]
-            public string ContentItemName { get; set; }
-
-            [JsonPropertyName("content_item_document_type")]
-            public string ContentItemDocumentType { get; set; } 
-            
-            [JsonPropertyName("content_item_parent_id")]
-            public int ContentItemParentId { get; set; }
+            [JsonPropertyName("content_item_id")]
+            public int ContentItemId { get; set; }
 
             [JsonPropertyName("content_propertie_values")]
             public List<ContentProperties> ContentPropertiesValues { get; set; }

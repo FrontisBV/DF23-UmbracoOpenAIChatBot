@@ -1,25 +1,23 @@
-﻿using OpenAI.Builders;
+﻿using AutoMapper;
+using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Services;
 
 namespace AIServices.Functions
 {
-    public class GetUmbracoContentItemsFunction : IUmbracoOpenAIFunction
+    public class GetUmbracoContentItemsFunction:  IUmbracoOpenAIFunction
     {
         public string Name { get => nameof(GetUmbracoContentItemsFunction); }
 
         private readonly IContentService contentService;
+        private readonly IMapper mapper;
 
-        public GetUmbracoContentItemsFunction(IContentService contentService)
+        public GetUmbracoContentItemsFunction(IContentService contentService, IMapper mapper)
         {
             this.contentService = contentService;
+            this.mapper = mapper;
         }
 
         public FunctionDefinition CreateDefinition()
@@ -34,13 +32,15 @@ namespace AIServices.Functions
 
             sb.AppendLine("The following content items already exist at root level within Umbraco: ");
             
-            sb.AppendLine("````");
+            sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
             var content = contentService.GetRootContent();
 
-            sb.AppendLine(JsonSerializer.Serialize(content.Select(s => s as Umbraco.Cms.Core.Models.Content)));
+            var minimalresult = content.Select(s => mapper.Map<Models.MinimalContentItem>(s as Umbraco.Cms.Core.Models.Content));
 
-            sb.AppendLine("````");
+            sb.AppendLine(JsonSerializer.Serialize(minimalresult));
+
+            sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
             return sb.ToString();
         }

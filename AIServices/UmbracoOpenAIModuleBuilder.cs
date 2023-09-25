@@ -6,6 +6,10 @@ using Umbraco.Cms.Core.DependencyInjection;
 using OpenAI.ObjectModels;
 using System.Reflection;
 using Umbraco.Cms.Core.Services;
+using AutoMapper;
+using AIServices.Models;
+using AIServices.Mappings;
+using OpenAI.ObjectModels.SharedModels;
 
 namespace AIServices
 {
@@ -20,7 +24,7 @@ namespace AIServices
 
             builder.Services.AddOpenAIService(opt =>
             {
-                opt.DefaultModelId = Models.Gpt_3_5_Turbo_16k;
+                opt.DefaultModelId = OpenAI.ObjectModels.Models.Gpt_3_5_Turbo_16k_0613;
             });
             #endregion
 
@@ -29,7 +33,21 @@ namespace AIServices
 
             RegisterFunctions(builder);
 
+            SetupAutoMapper(builder);
+
             return builder;
+        }
+
+        private static void SetupAutoMapper(IUmbracoBuilder builder)
+        {
+            // AutoMapper Configuration
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<UmbacoContentMappings>();
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            builder.Services.AddSingleton(mapper);
         }
 
         private static void RegisterFunctions(IUmbracoBuilder builder)
