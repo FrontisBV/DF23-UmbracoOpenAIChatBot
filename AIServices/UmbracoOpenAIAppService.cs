@@ -66,7 +66,7 @@ namespace AIServices
 
                 if (choice.Message.FunctionCall != null)
                 {
-                    await HandleFunctionMessage(completionResult, messages);
+                    await HandleFunctionMessageRecursive(completionResult, messages);
 
                     completionResult = await openAiAppService.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
                     {
@@ -101,7 +101,7 @@ namespace AIServices
             return messages;
         }
 
-        private async Task HandleFunctionMessage(ChatCompletionCreateResponse completionResult, List<ChatMessage> messages)
+        private async Task HandleFunctionMessageRecursive(ChatCompletionCreateResponse completionResult, List<ChatMessage> messages)
         {
             var choice = completionResult.Choices.First();
 
@@ -124,7 +124,7 @@ namespace AIServices
                     var newChoice = newCompletionResult.Choices.First();
 
                     if (newChoice.Message.FunctionCall != null)
-                        await HandleFunctionMessage(newCompletionResult, messages);
+                        await HandleFunctionMessageRecursive(newCompletionResult, messages);
                 }
                 else
                 {
