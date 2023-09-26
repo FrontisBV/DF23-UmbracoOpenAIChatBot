@@ -24,8 +24,8 @@ namespace AIServices.Functions
 
         public FunctionDefinition CreateDefinition()
         {
-            return new FunctionDefinitionBuilder(this.Name, "Retrieve a specific Umbraco webpage by its unique ID")
-                  .AddParameter("content_item_id", new PropertyDefinition { Type = "integer", Description = "The unique ID of the webpage", Required = new List<string> { "content_item_id" } })
+            return new FunctionDefinitionBuilder(this.Name, "Get a specific umbraco page (also known as content item) by it's id")
+                  .AddParameter("content_item_id", new PropertyDefinition { Type = "integer", Description = "The ID of the page", Required = new List<string> { "content_item_id" } })
                   .Build();
         }
 
@@ -43,11 +43,10 @@ namespace AIServices.Functions
             }
             else
             {
-                sb.AppendLine($"Here is the specific Umbraco webpage (with unique ID \"{args.content_item_id}\") you requested: ");
+                sb.AppendLine($"The following content matches the id \"{args.content_item_id}\": ");
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
                 sb.AppendLine(JsonSerializer.Serialize(mapper.Map<MinimalContentItem>(item as Umbraco.Cms.Core.Models.Content)));
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
-                sb.AppendLine("How can I assist you further with this content item or its properties?");
             }
             
             return sb.ToString();

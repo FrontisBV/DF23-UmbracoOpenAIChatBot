@@ -67,18 +67,17 @@ namespace AIServices.Functions
 
                 contentService.SaveAndPublish(content);
 
-                sb.AppendLine($"Great news! The Webpage with id '{contentItem.ContentItemId}' has been successfully updated!");
+                sb.AppendLine($"Page with id '{contentItem.ContentItemId}' Updated!");
                 sb.AppendLine("Here is the complete updated page object: ");
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
                 sb.AppendLine(JsonSerializer.Serialize(mapper.Map<Models.MinimalContentItem>(content as Umbraco.Cms.Core.Models.Content)));
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
-                sb.AppendLine("Is there anything else you'd like to do with this page or any other tasks you need assistance with?");
 
                 return sb.ToString();
             }
             catch (Exception ex)
             {
-                return $"Unfortunately something went wrong while updating the content item: {ex.Message}";
+                return $"Unfortunately something went wrong while creating the content item: {ex.Message}";
 
             }
         }
