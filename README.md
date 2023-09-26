@@ -37,7 +37,7 @@ In this session, we'll explore the powerful fusion of Umbraco and OpenAI Functio
 
 To get started with this project, please follow the installation and usage instructions:
 
-1. Create or ise a valid OpenAI Api key that needs to be filled in the appsettings.json
+1. Create or use a valid OpenAI Api key that needs to be filled in the appsettings.json
 
 ```
   "OpenAIServiceOptions": {
