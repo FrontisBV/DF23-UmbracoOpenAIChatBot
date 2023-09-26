@@ -1,4 +1,5 @@
 ﻿using AIServices.Models;
+using AIServices.Models.ContentItems;
 using AutoMapper;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;

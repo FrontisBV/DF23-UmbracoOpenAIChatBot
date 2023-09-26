@@ -10,6 +10,7 @@ using AutoMapper;
 using AIServices.Models;
 using AIServices.Mappings;
 using OpenAI.ObjectModels.SharedModels;
+using Microsoft.Extensions.Options;
 
 namespace AIServices
 {
@@ -21,6 +22,7 @@ namespace AIServices
 
             #region openAI
             builder.Services.Configure<OpenAiOptions>(configuration.GetSection("OpenAIServiceOptions"));
+            builder.Services.Configure<UmbracoAIOptions>(configuration.GetSection("UmbracoAIOptions"));
 
             builder.Services.AddOpenAIService(opt =>
             {

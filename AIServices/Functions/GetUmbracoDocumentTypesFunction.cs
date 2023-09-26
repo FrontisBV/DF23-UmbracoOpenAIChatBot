@@ -36,9 +36,13 @@ namespace AIServices.Functions
 
             sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
+            string jsontest = JsonSerializer.Serialize(contentTypeService.GetAll().Select(s => mapper.Map<MinimalContentType>(s as ContentType)));
+
             sb.AppendLine(JsonSerializer.Serialize(contentTypeService.GetAll().Select(s => mapper.Map<MinimalContentType>(s as ContentType))));
 
             sb.AppendLine(Constants.Markdown.CODEBLOCK);
+
+            sb.AppendLine("When you request me to create pages, I will strive to identify the most suitable document type based on the content of the page!");
 
             return sb.ToString();
         }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AIServices.Models.ContentItems;
+using AutoMapper;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
 using System.Text;
@@ -36,7 +37,7 @@ namespace AIServices.Functions
 
             var content = contentService.GetRootContent();
 
-            var minimalresult = content.Select(s => mapper.Map<Models.MinimalContentItem>(s as Umbraco.Cms.Core.Models.Content));
+            var minimalresult = content.Select(s => mapper.Map<MinimalContentItem>(s as Umbraco.Cms.Core.Models.Content));
 
             sb.AppendLine(JsonSerializer.Serialize(minimalresult));
 

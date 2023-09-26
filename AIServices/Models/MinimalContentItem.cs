@@ -1,4 +1,4 @@
-﻿namespace AIServices.Models
+﻿namespace AIServices.Models.ContentItems
 {
     public class MinimalContentItem
     {
@@ -29,6 +29,16 @@
             public string Description { get; set; }
 
             public string PropertyEditorAlias { get; set; }
+        }
+
+        public class PropertyGroup
+        {
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public string Alias { get; set; }
+
+            public List<PropertyType>? PropertyTypes { get; set; }
+            
         }
 
         public class PropertyValue

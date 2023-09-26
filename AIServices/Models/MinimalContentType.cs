@@ -1,6 +1,4 @@
-﻿using static AIServices.Models.MinimalContentItem;
-
-namespace AIServices.Models
+﻿namespace AIServices.Models
 {
     public class MinimalContentType
     {
@@ -13,6 +11,6 @@ namespace AIServices.Models
 
         public string Name { get; set; }
 
-        public List<PropertyType> PropertyTypes { get; set; }
+        public List<AIServices.Models.ContentItems.MinimalContentItem.PropertyGroup> PropertyGroups { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AIServices.Models.ContentItems;
+using AutoMapper;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
 using OpenAI.ObjectModels.SharedModels;
@@ -70,7 +71,7 @@ namespace AIServices.Functions
                 sb.AppendLine($"Great news! The Webpage with id '{contentItem.ContentItemId}' has been successfully updated!");
                 sb.AppendLine("Here is the complete updated page object: ");
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
-                sb.AppendLine(JsonSerializer.Serialize(mapper.Map<Models.MinimalContentItem>(content as Umbraco.Cms.Core.Models.Content)));
+                sb.AppendLine(JsonSerializer.Serialize(mapper.Map<MinimalContentItem>(content as Umbraco.Cms.Core.Models.Content)));
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
                 sb.AppendLine("Is there anything else you'd like to do with this page or any other tasks you need assistance with?");
 
