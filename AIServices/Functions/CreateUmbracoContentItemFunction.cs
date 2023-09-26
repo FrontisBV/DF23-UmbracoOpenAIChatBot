@@ -25,7 +25,7 @@ namespace AIServices.Functions
 
         public FunctionDefinition CreateDefinition()
         {
-            return new FunctionDefinitionBuilder(this.Name, "Create a page (also known as a content item) of a certain document type and set the properties of the page with values.")
+            return new FunctionDefinitionBuilder(this.Name, "Generate a webpage of a specified document type and configure its properties with specific values.")
                     .AddParameter("content_item_name", new PropertyDefinition { Type = "string", Description = "The name of the page, e.g. Blog", Required = new List<string> { "content_item_name" } })
                     .AddParameter("content_item_document_type", new PropertyDefinition { Type = "string", Description = "The name or alias of the document type, e.g. BlogItem", Required = new List<string> { "content_item_document_type" } })
                     .AddParameter("content_item_parent_id", new PropertyDefinition { Type = "integer", Description = "The id of the parent content item"})
@@ -38,7 +38,7 @@ namespace AIServices.Functions
                             },
                             required: null,
                             additionalProperties: false,
-                            description: "The properties to set for the page",
+                            description: "Specify the properties to be configured for the page.",
                             @enum: null))
                     )
                     .Build();
@@ -62,7 +62,6 @@ namespace AIServices.Functions
 
                 IContent content = contentService.Create(contentItem.ContentItemName, parentId, contentItem.ContentItemDocumentType);
 
-                
                 if (contentItem.ContentPropertiesValues?.Any() ?? false)
                 {
                     foreach (var item in contentItem.ContentPropertiesValues)
@@ -74,12 +73,12 @@ namespace AIServices.Functions
 
                 contentService.SaveAndPublish(content);
 
-                sb.AppendLine($"Page created '{contentItem.ContentItemName}' with id \"{content.Id}\" and document type \"{contentItem.ContentItemDocumentType}\"!");
+                sb.AppendLine($"Great news! The webpage has been successfully created with id \"{content.Id}\" and document type \"{contentItem.ContentItemDocumentType}\"!");
                 sb.AppendLine("Here is the complete newly created page object: ");
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
                 sb.AppendLine(JsonSerializer.Serialize(mapper.Map<Models.MinimalContentItem>(content as Umbraco.Cms.Core.Models.Content)));
                 sb.AppendLine(Constants.Markdown.CODEBLOCK);
-
+                sb.AppendLine("Is there anything else you'd like to do with this page or any other tasks you need assistance with?");
                 return sb.ToString();
             }
             catch (Exception ex)

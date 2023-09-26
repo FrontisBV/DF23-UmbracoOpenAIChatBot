@@ -8,6 +8,8 @@ Welcome to the official repository for the Umbraco and OpenAI chatbot integratio
 
 In this session, we'll explore the powerful fusion of Umbraco and OpenAI Functions to create an AI-driven chatbot. Discover how the latest AI models can intelligently respond to user requests with JSON outputs, enabling dynamic content generation for Umbraco pages. We'll showcase the chatbot in action, demonstrating its ability to create pages on various topics.
 
+Please note that the code presented started as a proof of concept, and its operational reliability cannot be guaranteed.
+
 ### Module Features
 
 - **Message History**: Message history is saved automatically.
@@ -32,6 +34,7 @@ In this session, we'll explore the powerful fusion of Umbraco and OpenAI Functio
 - Injecting custom function calls is not yet supported.
 - Builder pattern does not support custom configuration.
 - Tokenization can grow beyond the token limits.
+- Markdown responses are not correctly displayed
 
 ## Getting Started
 

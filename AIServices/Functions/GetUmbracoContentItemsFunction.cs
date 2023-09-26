@@ -22,7 +22,7 @@ namespace AIServices.Functions
 
         public FunctionDefinition CreateDefinition()
         {
-            return new FunctionDefinitionBuilder(this.Name, "Get all the existing Umbraco content items that live in the root of the site")
+            return new FunctionDefinitionBuilder(this.Name, "Retrieve all current Umbraco webpages located at the site's root")
                      .Build();
         }
 
@@ -30,7 +30,7 @@ namespace AIServices.Functions
         {
             StringBuilder sb = new();
 
-            sb.AppendLine("The following content items already exist at root level within Umbraco: ");
+            sb.AppendLine("The following webpages are already present at the root level in Umbraco: ");
             
             sb.AppendLine(Constants.Markdown.CODEBLOCK);
 

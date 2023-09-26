@@ -24,7 +24,7 @@ namespace AIServices.Functions
 
         public FunctionDefinition CreateDefinition()
         {
-            return new FunctionDefinitionBuilder(this.Name, "Get all the document types (and their properties) that are available within umbraco")
+            return new FunctionDefinitionBuilder(this.Name, "Retrieve a comprehensive list of available Umbraco document types, including detailed information about their associated properties.")
                      .Build();
         }
 
@@ -32,7 +32,7 @@ namespace AIServices.Functions
         {
             StringBuilder sb = new();
 
-            sb.AppendLine("The following document types are available within Umbraco: ");
+            sb.AppendLine("The Umbraco platform offers the following document types: ");
 
             sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
