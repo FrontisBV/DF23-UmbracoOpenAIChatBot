@@ -1,4 +1,5 @@
-﻿using AIServices.Functions;
+﻿using AIServices.Functions.Contracts;
+using AIServices.ChatMessages;
 using OpenAI.Builders;
 using OpenAI.Interfaces;
 using OpenAI.ObjectModels.RequestModels;
@@ -24,13 +25,13 @@ namespace AIServices
         const float MODELTEMPERATURE = 0.1f;
 
         private readonly IOpenAIService openAiAppService;
-        private readonly IChatMessagePersistencyAppService chatMessagePersistencyAppService;
+        private readonly IChatMessagesStorageAppService chatMessagePersistencyAppService;
         private readonly IEnumerable<IUmbracoOpenAIFunction> openAIFunctions;
         private readonly List<FunctionDefinition> functionDefinitions;
 
         public UmbracoOpenAIAppService(
             IOpenAIService openAiAppService,
-            IChatMessagePersistencyAppService chatMessagePersistencyAppService,
+            IChatMessagesStorageAppService chatMessagePersistencyAppService,
             IEnumerable<IUmbracoOpenAIFunction> openAIFunctions
             )
         {
@@ -41,14 +42,9 @@ namespace AIServices
             this.functionDefinitions = openAIFunctions.Select(s => s.CreateDefinition()).ToList();
         }
 
-        public void ClearMessages(string chatId)
-        {
-            chatMessagePersistencyAppService.Clear(chatId);
-        }
-
         public async Task<List<ChatMessage>> SendMessage(string chatId, ChatMessage content)
         {
-            var messages = InitMessages(chatId);
+            var messages = InitSystemMessages(chatId);
 
             messages.Add(ChatMessage.FromUser(content.Content));
 
@@ -138,7 +134,7 @@ namespace AIServices
             return openAIFunctions.FirstOrDefault(s => s.Name == fn.Name)?.ExecuteFunction(fn.Arguments) ?? string.Empty;
         }
 
-        private List<ChatMessage> InitMessages(string chatId)
+        private List<ChatMessage> InitSystemMessages(string chatId)
         {
             var messages = chatMessagePersistencyAppService.Get(chatId) ?? new ();
 
@@ -152,6 +148,11 @@ namespace AIServices
             }
 
             return messages;
+        }
+
+        public void ClearMessages(string chatId)
+        {
+            chatMessagePersistencyAppService.Clear(chatId);
         }
     }
 }

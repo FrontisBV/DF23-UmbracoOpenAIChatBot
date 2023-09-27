@@ -1,6 +1,6 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
 
-namespace AIServices.Functions
+namespace AIServices.Functions.Contracts
 {
     public interface IUmbracoOpenAIFunction
     {

@@ -1,5 +1,4 @@
-﻿using AIServices.Functions;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using OpenAI.Extensions;
 using OpenAI;
 using Umbraco.Cms.Core.DependencyInjection;
@@ -10,6 +9,8 @@ using AutoMapper;
 using AIServices.Models;
 using AIServices.Mappings;
 using OpenAI.ObjectModels.SharedModels;
+using AIServices.ChatMessages;
+using AIServices.Functions.Contracts;
 
 namespace AIServices
 {
@@ -28,7 +29,7 @@ namespace AIServices
             });
             #endregion
 
-            builder.Services.AddSingleton<IChatMessagePersistencyAppService, ChatMessageSessionPersistencyAppService>();
+            builder.Services.AddSingleton<IChatMessagesStorageAppService, ChatMessagesStorageAppService>();
             builder.Services.AddTransient<IUmbracoOpenAIAppService, UmbracoOpenAIAppService>();
 
             RegisterFunctions(builder);
@@ -40,7 +41,6 @@ namespace AIServices
 
         private static void SetupAutoMapper(IUmbracoBuilder builder)
         {
-            // AutoMapper Configuration
             var mapperConfig = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<UmbacoContentMappings>();

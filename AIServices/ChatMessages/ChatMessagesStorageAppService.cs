@@ -1,19 +1,14 @@
 ﻿using OpenAI.ObjectModels.RequestModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AIServices
+namespace AIServices.ChatMessages
 {
-    public class ChatMessageSessionPersistencyAppService : IChatMessagePersistencyAppService
+    public class ChatMessagesStorageAppService : IChatMessagesStorageAppService
     {
         public Dictionary<string, List<ChatMessage>> Messages { get; private set; }
 
-        public ChatMessageSessionPersistencyAppService()
+        public ChatMessagesStorageAppService()
         {
-            this.Messages = new();
+            Messages = new();
         }
 
         public void Clear(string chatId)
@@ -24,7 +19,7 @@ namespace AIServices
 
         public List<ChatMessage> Get(string chatId)
         {
-            if(Messages.ContainsKey(chatId))
+            if (Messages.ContainsKey(chatId))
                 return Messages[chatId];
 
             return null;

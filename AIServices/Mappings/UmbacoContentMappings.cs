@@ -14,6 +14,7 @@ namespace AIServices.Mappings
             CreateMap<Umbraco.Cms.Core.Models.IPropertyValue, MinimalContentItem.PropertyValue>();
 
             CreateMap<Umbraco.Cms.Core.Models.ContentType, MinimalContentType>();
+            CreateMap<Umbraco.Cms.Core.Models.PropertyType, MinimalContentType.PropertyType>();
         }
     }
 }

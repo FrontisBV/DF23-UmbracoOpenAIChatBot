@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using AIServices.Functions.Contracts;
+using AutoMapper;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
 using System.Text;

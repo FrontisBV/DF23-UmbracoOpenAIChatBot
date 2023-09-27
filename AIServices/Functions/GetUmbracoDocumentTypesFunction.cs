@@ -1,4 +1,5 @@
-﻿using AIServices.Models;
+﻿using AIServices.Functions.Contracts;
+using AIServices.Models;
 using AutoMapper;
 using OpenAI.Builders;
 using OpenAI.ObjectModels.RequestModels;
@@ -32,13 +33,20 @@ namespace AIServices.Functions
         {
             StringBuilder sb = new();
 
-            sb.AppendLine("The following document types are available within Umbraco: ");
+            try
+            {
+                sb.AppendLine("The following document types are available within Umbraco: ");
 
-            sb.AppendLine(Constants.Markdown.CODEBLOCK);
+                sb.AppendLine(Constants.Markdown.CODEBLOCK);
 
-            sb.AppendLine(JsonSerializer.Serialize(contentTypeService.GetAll().Select(s => mapper.Map<MinimalContentType>(s as ContentType))));
+                sb.AppendLine(JsonSerializer.Serialize(contentTypeService.GetAll().Select(s => mapper.Map<MinimalContentType>(s as ContentType))));
 
-            sb.AppendLine(Constants.Markdown.CODEBLOCK);
+                sb.AppendLine(Constants.Markdown.CODEBLOCK);
+            }
+            catch (Exception ex)
+            {
+                sb.AppendLine($"I am sorry, i cannot provide you any document types because something went wrong. This is the internal error: {ex.Message}");
+            }
 
             return sb.ToString();
         }
