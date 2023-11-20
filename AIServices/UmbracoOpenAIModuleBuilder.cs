@@ -2,13 +2,9 @@
 using OpenAI.Extensions;
 using OpenAI;
 using Umbraco.Cms.Core.DependencyInjection;
-using OpenAI.ObjectModels;
 using System.Reflection;
-using Umbraco.Cms.Core.Services;
 using AutoMapper;
-using AIServices.Models;
 using AIServices.Mappings;
-using OpenAI.ObjectModels.SharedModels;
 using AIServices.ChatMessages;
 using AIServices.Functions.Contracts;
 
@@ -25,7 +21,7 @@ namespace AIServices
 
             builder.Services.AddOpenAIService(opt =>
             {
-                opt.DefaultModelId = OpenAI.ObjectModels.Models.Gpt_3_5_Turbo_16k_0613;
+                opt.DefaultModelId = OpenAI.ObjectModels.Models.Gpt_4_1106_preview;
             });
             #endregion
 
