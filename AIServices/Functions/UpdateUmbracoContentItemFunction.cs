@@ -33,7 +33,7 @@ namespace AIServices.Functions
                         PropertyDefinition.DefineObject(
                             properties: new Dictionary<string, PropertyDefinition>()
                             {
-                                { "property_name", new PropertyDefinition { Type = "string", Description = "The name of the property"}},
+                                { "property_alias", new PropertyDefinition { Type = "string", Description = "The alias of the property"}},
                                 { "property_content", new PropertyDefinition { Type = "string", Description = "The value for the property"}},
                             },
                             required: null,
@@ -61,8 +61,8 @@ namespace AIServices.Functions
                 {
                     foreach (var item in contentItem.ContentPropertiesValues)
                     {
-                        if (content.HasProperty(item.PropertyName))
-                            content.SetValue(item.PropertyName, item.PropertyContent);
+                        if (content.HasProperty(item.PropertyAlias))
+                            content.SetValue(item.PropertyAlias, item.PropertyContent);
                     }
                 }
 
@@ -86,8 +86,8 @@ namespace AIServices.Functions
         #region private classes
         private class ContentProperties
         {
-            [JsonPropertyName("property_name")]
-            public string PropertyName { get; set; }
+            [JsonPropertyName("property_alias")]
+            public string PropertyAlias { get; set; }
 
             [JsonPropertyName("property_content")]
             public string PropertyContent { get; set; }
